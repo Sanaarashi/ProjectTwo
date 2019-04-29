@@ -1,0 +1,11 @@
+#ryu {
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+
+#hadouken {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
