@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //timer
 
-    let deadline = new Date('2019-05-01 00:00:00');
+    let deadline = new Date('2019-05-01 00:10:00');
 
     function getTimeRemaining(endtime) {
         let time = Date.parse(endtime) - Date.parse(new Date()),
@@ -70,8 +70,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 time.seconds = "0" + time.seconds;
             }
             
-            if (time.mins < 10) {
-                time.minutes = "0" + time.seconds;
+            if (time.minutes < 10) {
+                time.minutes = "0" + time.minutes;
             }
 
             if (time.hours < 10) {
