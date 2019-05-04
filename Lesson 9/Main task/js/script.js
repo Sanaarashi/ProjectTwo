@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
         tabContent = document.querySelectorAll('.info-tabcontent');
 
     function hideTabContent(a) {
-        for (let i = a; i < tabContent.length; i ++) {
+        for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
         }
@@ -41,18 +41,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function getTimeRemaining(endtime) {
         let time = Date.parse(endtime) - Date.parse(new Date()),
-            secs = Math.floor((time/1000) % 60),
-            mins = Math.floor((time/1000/60) % 60),
-            hours = Math.floor((time/(1000*60*60)));
+            secs = Math.floor((time / 1000) % 60),
+            mins = Math.floor((time / 1000 / 60) % 60),
+            hours = Math.floor((time / (1000 * 60 * 60)));
 
-            
 
-        
+
+
         return {
-            'total' :  time,
-            'hours' : hours,
-            'minutes' : mins,
-            'seconds' : secs
+            'total': time,
+            'hours': hours,
+            'minutes': mins,
+            'seconds': secs
         };
     }
 
@@ -65,11 +65,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         function updateTime() {
             let time = getTimeRemaining(endtime);
-            
+
             if (time.seconds < 10) {
                 time.seconds = "0" + time.seconds;
             }
-            
+
             if (time.minutes < 10) {
                 time.minutes = "0" + time.minutes;
             }
@@ -90,24 +90,24 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    
+
     //modal window
 
-    let container = document.getElementById('about'),
+    let container = document.querySelector('body'),
         overlay = document.querySelector('.overlay'),
-        close = document.querySelector('.popup-close');
+        temp;
 
     container.addEventListener('click', (event) => {
         if (event.target && (event.target.classList == 'description-btn' || event.target.classList == 'more')) {
-            document.body.style.overflow = 'hidden';
             overlay.style.display = 'block';
             event.target.classList.add('more-splash');
-        }
-        close.addEventListener('click', () => {
+            document.body.style.overflow = 'hidden';
+            temp = event.target;
+        } else if (event.target && event.target.classList == 'popup-close') {
             overlay.style.display = 'none';
-            event.target.classList.remove('more-splash');
+            temp.classList.remove('more-splash');
             document.body.style.overflow = '';
-        });
+        }
     });
 
     setClock('timer', deadline);
