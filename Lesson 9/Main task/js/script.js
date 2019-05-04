@@ -94,21 +94,21 @@ window.addEventListener('DOMContentLoaded', () => {
     //modal window
 
     let container = document.querySelector('body'),
-        overlay = document.querySelector('.overlay'),
-        temp;
+        overlay = document.querySelector('.overlay');
 
     container.addEventListener('click', (event) => {
-        if (event.target && (event.target.classList == 'description-btn' || event.target.classList == 'more')) {
-            overlay.style.display = 'block';
-            event.target.classList.add('more-splash');
-            document.body.style.overflow = 'hidden';
-            temp = event.target;
-        } else if (event.target && event.target.classList == 'popup-close') {
-            overlay.style.display = 'none';
-            temp.classList.remove('more-splash');
-            document.body.style.overflow = '';
+        function setParameters(a, b) {
+            overlay.style.display = a;
+            document.body.style.overflow = b;
+        }
+        if (event.target.classList == 'description-btn' || event.target.classList == 'more') {
+            setParameters('block', 'hidden');
+        } else if (event.target.classList == 'popup-close') {
+            setParameters('none', '');
         }
     });
+
+
 
     setClock('timer', deadline);
 });
