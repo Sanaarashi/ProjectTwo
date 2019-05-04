@@ -92,32 +92,23 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     //modal window
-    let moreBtn = document.querySelector('.more'),
+
+    let container = document.getElementById('about'),
         overlay = document.querySelector('.overlay'),
-        close = document.querySelector('.popup-close'),
-        descBtns = document.querySelectorAll('.description-btn');
-        
-    moreBtn.addEventListener('click', () => {
-        showOverlay();
-    });
+        close = document.querySelector('.popup-close');
 
-    close.addEventListener('click', () => {
-        overlay.style.display = 'none';
-        moreBtn.classList.remove('more-splash');
-        document.body.style.overflow = '';
-    });
-
-    descBtns.forEach( (elem) => {
-        elem.addEventListener('click', () => {
-            showOverlay();
+    container.addEventListener('click', (event) => {
+        if (event.target && (event.target.classList == 'description-btn' || event.target.classList == 'more')) {
+            document.body.style.overflow = 'hidden';
+            overlay.style.display = 'block';
+            event.target.classList.add('more-splash');
+        }
+        close.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            event.target.classList.remove('more-splash');
+            document.body.style.overflow = '';
         });
     });
-
-    function showOverlay() {
-        document.body.style.overflow = 'hidden';
-        overlay.style.display = 'block';
-        this.classList.add('more-splash');
-    }
 
     setClock('timer', deadline);
 });
