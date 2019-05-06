@@ -1,26 +1,27 @@
 window.addEventListener('DOMContentLoaded', () => {
 
+
     'use sctrict';
 
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
 
-    function hideTabContent(a) {
+    let hideTabContent = (a) => {
         for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
         }
-    }
+    };
 
     hideTabContent(1);
 
-    function showTabContent(b) {
+    let showTabContent = (b) => {
         if (tabContent[b].classList.contains('hide')) {
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
         }
-    }
+    };
 
     info.addEventListener('click', (event) => {
         let target = event.target;
@@ -39,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let deadline = new Date('2019-05-27 00:10:00');
 
-    function getTimeRemaining(endtime) {
+    let getTimeRemaining = (endtime) => {
         let time = Date.parse(endtime) - Date.parse(new Date()),
             secs = Math.floor((time / 1000) % 60),
             mins = Math.floor((time / 1000 / 60) % 60),
@@ -54,16 +55,16 @@ window.addEventListener('DOMContentLoaded', () => {
             'minutes': mins,
             'seconds': secs
         };
-    }
+    };
 
-    function setClock(id, endtime) {
+    let setClock = (id, endtime) => {
         let timer = document.getElementById(id),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
-            seconds = timer.querySelector('.seconds'),
-            timeInterval = setInterval(updateTime, 1000);
+            seconds = timer.querySelector('.seconds');
 
-        function updateTime() {
+
+        let updateTime = () => {
             let time = getTimeRemaining(endtime);
 
             if (time.seconds < 10) {
@@ -89,17 +90,21 @@ window.addEventListener('DOMContentLoaded', () => {
                 seconds.textContent = "00";
             }
         }
-    }
+
+        let timeInterval = setInterval(updateTime, 1000);
+    };
+
+    setClock('timer', deadline);
 
     //modal window
 
     let container = document.querySelector('body'),
         overlay = document.querySelector('.overlay');
 
-    function setParameters(a, b) {
+    let setParameters = (a, b) => {
         overlay.style.display = a;
         document.body.style.overflow = b;
-    }
+    };
 
     container.addEventListener('click', (event) => {
         if (event.target.classList == 'description-btn' || event.target.classList == 'more') {
@@ -108,8 +113,4 @@ window.addEventListener('DOMContentLoaded', () => {
             setParameters('none', '');
         }
     });
-
-
-
-    setClock('timer', deadline);
 });
