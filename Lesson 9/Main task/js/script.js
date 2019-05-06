@@ -96,11 +96,12 @@ window.addEventListener('DOMContentLoaded', () => {
     let container = document.querySelector('body'),
         overlay = document.querySelector('.overlay');
 
+    function setParameters(a, b) {
+        overlay.style.display = a;
+        document.body.style.overflow = b;
+    }
+
     container.addEventListener('click', (event) => {
-        function setParameters(a, b) {
-            overlay.style.display = a;
-            document.body.style.overflow = b;
-        }
         if (event.target.classList == 'description-btn' || event.target.classList == 'more') {
             setParameters('block', 'hidden');
         } else if (event.target.classList == 'popup-close') {
