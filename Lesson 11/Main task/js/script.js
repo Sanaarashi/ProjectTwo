@@ -123,9 +123,8 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     let form = document.querySelectorAll('form'),
-        input = form[0].getElementsByTagName('input'),
-        statusMessage = document.createElement('div'),
-        cInput = form[1].querySelector('input');
+        inputs = document.querySelectorAll('input'),
+        statusMessage = document.createElement('div');
 
     statusMessage.classList.add('status');
 
@@ -135,12 +134,12 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    input[1].addEventListener('input', () => {
-        input[1].value = input[1].value.replace(/[^+0-9]/, '').slice(0,12);
-    });
-
-    cInput.addEventListener('input', () => {
-        cInput.value = cInput.value.replace(/[^+0-9]/, '').slice(0,12);
+    inputs.forEach(elem => {
+        if (elem.getAttribute('type') === 'tel') {
+            elem.addEventListener('input', () => {
+                elem.value = elem.value.replace(/[^+0-9]/, '').slice(0, 12);
+            });
+        } 
     });
 
 
@@ -165,11 +164,8 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        for (let i = 0; i < input.length; i++) {
-            input[i].value = '';
-        }
-        for (let i = 0; i < cInput.length; i++) {
-            cInput[i].value = '';
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = '';
         }
     };
 
