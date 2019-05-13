@@ -122,21 +122,27 @@ window.addEventListener('DOMContentLoaded', () => {
         failure: 'Что-то пошло не так...'
     };
 
-    let form = document.querySelector('.main-form'),
-        input = form.getElementsByTagName('input'),
+    let form = document.querySelectorAll('form'),
+        input = form[0].getElementsByTagName('input'),
         statusMessage = document.createElement('div'),
-        cForm = document.querySelector('#form'),
-        cInput = cForm.getElementsByTagName('input');
+        cInput = form[1].querySelector('input');
 
-        statusMessage.classList.add('status');
+    statusMessage.classList.add('status');
 
-    form.addEventListener('submit', (event) => {
-        sendFormData(event);
+    form.forEach(elem => {
+        elem.addEventListener('submit', (event) => {
+            sendFormData(event);
+        });
     });
 
-    cForm.addEventListener('submit', (event) => {
-        sendFormData(event);
+    input[1].addEventListener('input', () => {
+        input[1].value = input[1].value.replace(/[^+0-9]/, '').slice(0,12);
     });
+
+    cInput.addEventListener('input', () => {
+        cInput.value = cInput.value.replace(/[^+0-9]/, '').slice(0,12);
+    });
+
 
     let sendFormData = (event) => {
         event.preventDefault();
@@ -146,10 +152,10 @@ window.addEventListener('DOMContentLoaded', () => {
         request.open('POST', 'server.php');
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        let formData = new FormData(form);
+        let formData = new FormData(event.target);
         request.send(formData);
 
-        request.addEventListener('readystatechange', () =>{
+        request.addEventListener('readystatechange', () => {
             if (request.readyState < 4) {
                 statusMessage.innerHTML = message.loading;
             } else if (request.readyState == 4 && request.status == 200) {
@@ -159,12 +165,13 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        for ( let i = 0; i < input.length; i++) {
+        for (let i = 0; i < input.length; i++) {
             input[i].value = '';
         }
-
-        for ( let i = 0; i < cInput.length; i++) {
+        for (let i = 0; i < cInput.length; i++) {
             cInput[i].value = '';
         }
     };
+
+
 });
