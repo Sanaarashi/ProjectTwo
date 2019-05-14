@@ -260,13 +260,7 @@ window.addEventListener('DOMContentLoaded', () => {
             totalValue.innerHTML = 0;
         } else {
             let a = total;
-            totalValue.innerHTML = a //* this.options[this.selectedIndex].value();
-        }
-    });
-
-    place.addEventListener('change', function() {
-        if (restDays.value !== '' && persons.value !== '') {
-            totalValue.innerHTML = total * this.options[this.selectedIndex].value;
+            totalValue.innerHTML = a * place.options[place.selectedIndex].value;
         }
     });
 });
