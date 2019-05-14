@@ -124,19 +124,48 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let form = document.querySelectorAll('form'),
         inputs = document.querySelectorAll('input'),
-        statusMessage = document.createElement('div');
+        statusMessage = document.createElement('div'),
+        persons = document.querySelectorAll('.counter-block-input')[0],
+        restDays = document.querySelectorAll('.counter-block-input')[1],
+        place = document.getElementById('select'),
+        totalValue = document.getElementById('total'),
+        price = document.getElementById('price'),
+        personsSum = 0,
+        daysSum = 0,
+        total = 0;
 
+    
+    totalValue.innerHTML = 0;
     statusMessage.classList.add('status');
 
     document.body.addEventListener('submit', (event) => {
         sendFormData(event);
     });
 
+    //calc in body
+
     document.body.addEventListener('input', (elem) => {
         if (elem.target.getAttribute('type') === 'tel') {
             elem.target.value = '+' + elem.target.value.replace(/[^\d]/g, '').slice(0, 11);
             if (elem.target.value.length == 1) elem.target.value = '';
         }
+
+        if (elem.target.classList == 'counter-block-input') {
+            elem.target.value = elem.target.value.replace(/(^[0]{1})/, '');
+            }
+    
+            personsSum = +persons.value;
+            daysSum = +restDays.value;
+            
+    
+            total = (daysSum + personsSum)*4000;
+            
+            if (restDays.value === '' || persons.value === '') {
+                totalValue.innerHTML = 0;
+            } else {
+                let a = total;
+                totalValue.innerHTML = a * place.options[place.selectedIndex].value;
+            }
     });
 
 
@@ -231,36 +260,4 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    //calculator
-    let persons = document.querySelectorAll('.counter-block-input')[0],
-        restDays = document.querySelectorAll('.counter-block-input')[1],
-        place = document.getElementById('select'),
-        totalValue = document.getElementById('total'),
-        price = document.getElementById('price'),
-        personsSum = 0,
-        daysSum = 0,
-        total = 0;
-
-    totalValue.innerHTML = 0;
-
-    price.addEventListener('input', (elem) => {
-        if (elem.target.classList == 'counter-block-input') {
-        elem.target.value = elem.target.value.replace(/(^[0]{1})/, '');
-        }
-    });
-
-    price.addEventListener('input', function() {
-        personsSum = +persons.value;
-        daysSum = +restDays.value;
-        
-
-        total = (daysSum + personsSum)*4000;
-        
-        if (restDays.value === '' || persons.value === '') {
-            totalValue.innerHTML = 0;
-        } else {
-            let a = total;
-            totalValue.innerHTML = a * place.options[place.selectedIndex].value;
-        }
-    });
 });
