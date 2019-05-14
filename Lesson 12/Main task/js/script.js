@@ -128,18 +128,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
     statusMessage.classList.add('status');
 
-    form.forEach(elem => {
-        elem.addEventListener('submit', (event) => {
-            sendFormData(event);
-        });
+    document.body.addEventListener('submit', (event) => {
+        sendFormData(event);
     });
 
-    inputs.forEach(elem => {
-        if (elem.getAttribute('type') === 'tel') {
-            elem.addEventListener('input', () => {
-                elem.value = elem.value.replace(/[^+0-9]/, '').slice(0, 12);
-            });
-        } 
+    document.body.addEventListener('input', (elem) => {
+        if (elem.target.getAttribute('type') === 'tel') {
+            elem.target.value = '+' + elem.target.value.replace(/[^\d]/g, '').slice(0, 11);
+            if (elem.target.value.length == 1) elem.target.value = '';
+        }
     });
 
 
