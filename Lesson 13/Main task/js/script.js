@@ -245,53 +245,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     price.addEventListener('input', (elem) => {
         if (elem.target.classList == 'counter-block-input') {
-        elem.target.value = elem.target.value.replace(/[^\d]/g, '');
+        elem.target.value = elem.target.value.replace(/(^[0]{1})/, '');
         }
     });
 
-    // price.addEventListener('change', function() {
-    //     personsSum = +persons.value;
-    //     daysSum = +restDays.value;
+    price.addEventListener('input', function() {
+        personsSum = +persons.value;
+        daysSum = +restDays.value;
         
 
-    //     total = (daysSum + personsSum)*4000;
-        
-    //     if (restDays.value === '' || persons.value === '') {
-    //         totalValue.innerHTML = 0;
-    //     } else {
-    //         let a = total;
-    //         totalValue.innerHTML = a * this.options[this.selectedIndex].value();
-    //     }
-    // });
-
-    persons.addEventListener('change', function() {
-        personsSum = +this.value;
         total = (daysSum + personsSum)*4000;
-
+        
         if (restDays.value === '' || persons.value === '') {
             totalValue.innerHTML = 0;
         } else {
-            totalValue.innerHTML = total;
-        }
-    });
-
-    restDays.addEventListener('change', function() {
-        daysSum = +this.value;
-        total = (daysSum + personsSum)*4000;
-
-        if (persons.value === '' || restDays.value === '') {
-            totalValue.innerHTML = 0;
-        } else {
-            totalValue.innerHTML = total;
+            let a = total;
+            totalValue.innerHTML = a //* this.options[this.selectedIndex].value();
         }
     });
 
     place.addEventListener('change', function() {
-        if (restDays.value == '' || persons.value == '') {
-            totalValue.innerHTML = 0;
-        } else {
-            let a = total;
-            totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+        if (restDays.value !== '' && persons.value !== '') {
+            totalValue.innerHTML = total * this.options[this.selectedIndex].value;
         }
     });
 });
