@@ -12,5 +12,18 @@ $(document).ready(function () {
     $('a[href="#sheldure"], .main_btna, .main_btn').on('click', showModal);
     $('.close, .overlay').on('click', closeModal);
 
-    $('.form').submit(function() { $.post('server.php', $('.form').serialize()); return false;});
+    $('.form').submit(function() { 
+        $.ajax({
+            method: "POST",
+            url: 'server.php',
+            dataType: 'html', 
+            data: $('.form-inline').serialize(),
+            success: function() {
+                alert('Получилось!');
+            },
+            error: function() {
+                alert("Error");
+            }
+        });
+         return false;});
 });
